@@ -43,6 +43,10 @@ const routes: Routes = [
     path: 'espera',
     loadChildren: () => import('./espera/espera.module').then( m => m.EsperaPageModule)
   },
+  {
+    path: 'registro',
+    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+  },
 ];
 
 @NgModule({
