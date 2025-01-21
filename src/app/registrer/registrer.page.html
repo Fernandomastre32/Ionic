@@ -1,42 +1,103 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>registrer</ion-title>
+    <ion-title>Registrarse</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <form (ngSubmit)="registrer(registerform)" #registerform="ngForm">
-
+  <form (ngSubmit)="register(registerform)" #registerform="ngForm">
     <ion-item>
       <ion-label position="stacked">Nombre</ion-label>
-      <ion-input  [(ngModel)]="nombre" placeholder="Escribe tu nombre"></ion-input>
+      <ion-input
+        name="nombre"
+        [(ngModel)]="nombre"
+        placeholder="Escribe tu nombre"
+        required
+        minlength="3"
+        #nombreInput="ngModel"
+      ></ion-input>
     </ion-item>
+    <div *ngIf="nombreInput.invalid && nombreInput.touched">
+      <ion-text color="danger">
+        <small *ngIf="nombreInput.errors?.['required']">El nombre es obligatorio.</small>
+        <small *ngIf="nombreInput.errors?.['minlength']">Debe tener al menos 3 caracteres.</small>
+      </ion-text>
+    </div>
 
     <ion-item>
-      <ion-label position="stacked">telefono</ion-label>
-      <ion-input  [(ngModel)]="numero" type="number" placeholder="Escribe tu telefono"></ion-input>
+      <ion-label position="stacked">Teléfono</ion-label>
+      <ion-input
+        name="numero"
+        [(ngModel)]="numero"
+        type="number"
+        placeholder="Escribe tu teléfono"
+        required
+        pattern="^[0-9]+$"
+        #numeroInput="ngModel"
+      ></ion-input>
     </ion-item>
+    <div *ngIf="numeroInput.invalid && numeroInput.touched">
+      <ion-text color="danger">
+        <small *ngIf="numeroInput.errors?.['required']">El teléfono es obligatorio.</small>
+        <small *ngIf="numeroInput.errors?.['pattern']">Debe contener solo números.</small>
+      </ion-text>
+    </div>
+
     <ion-item>
       <ion-label position="stacked">Correo</ion-label>
-      <ion-input  [(ngModel)]="email" type="email" placeholder="Escribe tu correo" errortex="Invalid email"></ion-input>
+      <ion-input
+        name="email"
+        [(ngModel)]="email"
+        type="email"
+        placeholder="Ingresar correo electrónico"
+        required
+        email
+        maxlength="30"
+        #emailInput="ngModel"
+      ></ion-input>
     </ion-item>
+    <div *ngIf="emailInput.invalid && emailInput.touched">
+      <ion-text color="danger">
+        <small *ngIf="emailInput.errors?.['required']">El correo es obligatorio.</small>
+        <small *ngIf="emailInput.errors?.['email']">El correo no es válido.</small>
+      </ion-text>
+    </div>
 
     <ion-item>
-      <ion-label position="stacked">password</ion-label>
-      <ion-input  [(ngModel)]="password" type="password" placeholder="Escribe tu password"></ion-input>
+      <ion-label position="stacked">Contraseña</ion-label>
+      <ion-input
+        name="password"
+        [(ngModel)]="password"
+        type="password"
+        placeholder="Escribe tu contraseña"
+        required
+        minlength="6"
+        #passwordInput="ngModel"
+      ></ion-input>
     </ion-item>
+    <div *ngIf="passwordInput.invalid && passwordInput.touched">
+      <ion-text color="danger">
+        <small *ngIf="passwordInput.errors?.['required']">La contraseña es obligatoria.</small>
+        <small *ngIf="passwordInput.errors?.['minlength']">
+          Debe tener al menos 6 caracteres.
+        </small>
+      </ion-text>
+    </div>
 
     <ion-item>
-      <ion-label position="stacked">password confirm</ion-label>
-      <ion-input  [(ngModel)]="passwordconfirm" type="password" placeholder="Escribe tu contrseña denuevo"></ion-input>
+      <ion-label position="stacked">Confirmar contraseña</ion-label>
+      <ion-input
+        name="passwordconfirm"
+        [(ngModel)]="passwordconfirm"
+        type="password"
+        placeholder="Escribe tu contraseña nuevamente"
+        required
+        #passwordConfirmInput="ngModel"
+      ></ion-input>
     </ion-item>
-    <ion-button expand="block" type="submit">Enviar</ion-button>
 
- 
+    <ion-button type="submit" expand="block" [disabled]="registerform.invalid">
+      Registrarse
+    </ion-button>
   </form>
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">registrer</ion-title>
-    </ion-toolbar>
-  </ion-header>
 </ion-content>

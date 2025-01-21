@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registrer',
@@ -13,22 +14,20 @@ export class RegistrerPage implements OnInit {
  password: String = '';
  passwordconfirm: String = '';
  numero: String = '';
-  constructor() { }
+
+  constructor(
+    private navcontroller: NavController,) { }
 
   ngOnInit() {
   }
-  registrer(form: NgForm){
-    console.log(form.value);
-    console.log(form.value);
-    console.log(form.invalid);
-    console.log(form.invalid);
-
-
-
-  }
+  register(form: NgForm) {
+    if(form.invalid) {
+      this.navcontroller.navigateBack('/home');
+    }
   
    
 
   }
 
 
+}
