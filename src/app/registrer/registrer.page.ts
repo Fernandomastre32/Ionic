@@ -23,7 +23,7 @@ export class RegistrerPage implements OnInit {
   register(form: NgForm) {
     if(form.invalid) {
       this.navcontroller.navigateBack('/home');
-    }
+   }
   
    
 
